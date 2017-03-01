@@ -6,6 +6,9 @@ Launcher/Assets
 *.app
 *.exe
 
+# And no assembly translations of blitzmax code either.
+.bmx
+
 # I don't want to see the MacOS .DS_Store files and thumbnails here
 .DS_Store
 ._*

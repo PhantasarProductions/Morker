@@ -502,7 +502,7 @@ kids
          Panel SG_Kthura
            x=96-
            y=96-
-           witdth=96
+           width=96
            height=96
            picflags=CENTER
            pic=Assets/Kthura.png
