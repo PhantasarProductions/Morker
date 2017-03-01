@@ -1,0 +1,13 @@
+# Sorry, these are not part of the open source license, so you're not gotta get those.
+# Place your own assets here :P
+Launcher/Assets
+
+# Any build executables may not be comitted
+*.app
+*.exe
+
+# I don't want to see the MacOS .DS_Store files and thumbnails here
+.DS_Store
+._*
+Thumbs.db
+

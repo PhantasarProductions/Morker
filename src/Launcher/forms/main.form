@@ -1,0 +1,533 @@
+width=80%
+height=80%
+br=100
+bg=0
+bb=100
+caption=Moerker - By Jeroen P. Broks
+flags=TITLE CLIENT CENTER
+r=200
+g=0
+b=255
+kids
+   Tabber mytabber
+      width=100%
+      height=100%
+      br=100
+      bg=0
+      bb=100
+      r=200
+      g=0
+      b=255
+   kids
+      tab Welcome   
+       br=100
+       bg=0
+       bb=100
+       r=200
+       g=0
+       b=255
+      kids
+          Panel PhantasarProductions
+           x=0
+           y=0
+           width=100%
+           height=25%
+           pic=Assets/Phantasar Productions.png
+           picflags=FIT
+          Label PRESENTEERT
+           x=0
+           y=30%
+           flags=CENTER
+           r=200
+           g=0
+           b=255
+           caption=Presents
+           width=100%
+           height=25
+          Panel Moerker
+           x=0
+           y=45%
+           width=100%
+           height=50%
+           pic=Assets/Moerker.png
+           picflags=FIT 
+      end
+      tab Start Game 
+       br=100
+       bg=0
+       bb=100
+       r=200
+       g=0
+       b=255
+      kids
+         -- 1st row
+         -- 1
+         Frame SGPanel#1
+           caption=Slot #1
+           x=0
+           y=0
+           width=25%
+           height=25%
+         kids
+           Button NewGame#1
+            x=0
+            y=25-
+            width=50%
+            height=25
+            caption=New
+           Button LoadGame#1
+            x=50%
+            y=25-
+            width=50%
+            height=25
+            caption=Resume
+           Frame GameCanvas#1
+            x=0
+            y=0
+            width=100%
+            height=25-
+            br=0
+            bg=0
+            br=0
+         end          
+         -- 2
+         Frame SGPanel#2
+           caption=Slot #2
+           x=25%
+           y=0
+           width=25%
+           height=25%
+         kids
+           Button NewGame#2
+            x=0
+            y=25-
+            width=50%
+            height=25
+            caption=New
+           Button LoadGame#2
+            x=50%
+            y=25-
+            width=50%
+            height=25
+            caption=Resume
+           Frame GameCanvas#2
+            x=0
+            y=0
+            width=100%
+            height=25-
+            br=0
+            bg=0
+            br=0
+         end          
+         -- 3
+         Frame SGPanel#3
+           caption=Slot #3
+           x=50%
+           y=0
+           width=25%
+           height=25%
+         kids
+           Button NewGame#3
+            x=0
+            y=25-
+            width=50%
+            height=25
+            caption=New
+           Button LoadGame#3
+            x=50%
+            y=25-
+            width=50%
+            height=25
+            caption=Resume
+           Frame GameCanvas#3
+            x=0
+            y=0
+            width=100%
+            height=25-
+            br=0
+            bg=0
+            br=0
+         end          
+         -- 4
+         Frame SGPanel#4
+           caption=Slot #4
+           x=75%
+           y=0
+           width=25%
+           height=25%
+         kids
+           Button NewGame#4
+            x=0
+            y=25-
+            width=50%
+            height=25
+            caption=New
+           Button LoadGame#4
+            x=50%
+            y=25-
+            width=50%
+            height=25
+            caption=Resume
+           Frame GameCanvas#4
+            x=0
+            y=0
+            width=100%
+            height=25-
+            br=0
+            bg=0
+            br=0
+         end      
+         -- 2nd row    
+         -- 1
+         Frame SGPanel#5
+           caption=Slot #5
+           x=0
+           y=25%
+           width=25%
+           height=25%
+         kids
+           Button NewGame#5
+            x=0
+            y=25-
+            width=50%
+            height=25
+            caption=New
+           Button LoadGame#5
+            x=50%
+            y=25-
+            width=50%
+            height=25
+            caption=Resume
+           Frame GameCanvas#5
+            x=0
+            y=0
+            width=100%
+            height=25-
+            br=0
+            bg=0
+            br=0
+         end          
+         -- 2
+         Frame SGPanel#6
+           caption=Slot #6
+           x=25%
+           y=25%
+           width=25%
+           height=25%
+         kids
+           Button NewGame#6
+            x=0
+            y=25-
+            width=50%
+            height=25
+            caption=New
+           Button LoadGame#6
+            x=50%
+            y=25-
+            width=50%
+            height=25
+            caption=Resume
+           Frame GameCanvas#6
+            x=0
+            y=0
+            width=100%
+            height=25-
+            br=0
+            bg=0
+            br=0
+         end          
+         -- 3
+         Frame SGPanel#7
+           caption=Slot #7
+           x=50%
+           y=25%
+           width=25%
+           height=25%
+         kids
+           Button NewGame#7
+            x=0
+            y=25-
+            width=50%
+            height=25
+            caption=New
+           Button LoadGame#7
+            x=50%
+            y=25-
+            width=50%
+            height=25
+            caption=Resume
+           Frame GameCanvas#7
+            x=0
+            y=0
+            width=100%
+            height=25-
+            br=0
+            bg=0
+            br=0
+         end          
+         -- 4
+         Frame SGPanel#8
+           caption=Slot #8
+           x=75%
+           y=25%
+           width=25%
+           height=25%
+         kids
+           Button NewGame#8
+            x=0
+            y=25-
+            width=50%
+            height=25
+            caption=New
+           Button LoadGame#8
+            x=50%
+            y=25-
+            width=50%
+            height=25
+            caption=Resume
+           Frame GameCanvas#8
+            x=0
+            y=0
+            width=100%
+            height=25-
+            br=0
+            bg=0
+            br=0
+         end          
+         -- 3rd row    
+         -- 1
+         Frame SGPanel#9
+           caption=Slot #9
+           x=0
+           y=50%
+           width=25%
+           height=25%
+         kids
+           Button NewGame#9
+            x=0
+            y=25-
+            width=50%
+            height=25
+            caption=New
+           Button LoadGame#9
+            x=50%
+            y=25-
+            width=50%
+            height=25
+            caption=Resume
+           Frame GameCanvas#9
+            x=0
+            y=0
+            width=100%
+            height=25-
+            br=0
+            bg=0
+            br=0
+         end          
+         -- 2
+         Frame SGPanel#10
+           caption=Slot #10
+           x=25%
+           y=50%
+           width=25%
+           height=25%
+         kids
+           Button NewGame#10
+            x=0
+            y=25-
+            width=50%
+            height=25
+            caption=New
+           Button LoadGame#10
+            x=50%
+            y=25-
+            width=50%
+            height=25
+            caption=Resume
+           Frame GameCanvas#10
+            x=0
+            y=0
+            width=100%
+            height=25-
+            br=0
+            bg=0
+            br=0
+         end          
+         -- 3
+         Frame SGPanel#11
+           caption=Slot #11
+           x=50%
+           y=50%
+           width=25%
+           height=25%
+         kids
+           Button NewGame#11
+            x=0
+            y=25-
+            width=50%
+            height=25
+            caption=New
+           Button LoadGame#11
+            x=50%
+            y=25-
+            width=50%
+            height=25
+            caption=Resume
+           Frame GameCanvas#11
+            x=0
+            y=0
+            width=100%
+            height=25-
+            br=0
+            bg=0
+            br=0
+         end          
+         -- 4
+         Frame SGPanel#12
+           caption=Slot #12
+           x=75%
+           y=50%
+           width=25%
+           height=25%
+         kids
+           Button NewGame#12
+            x=0
+            y=25-
+            width=50%
+            height=25
+            caption=New
+           Button LoadGame#12
+            x=50%
+            y=25-
+            width=50%
+            height=25
+            caption=Resume
+           Frame GameCanvas#12
+            x=0
+            y=0
+            width=100%
+            height=25-
+            br=0
+            bg=0
+            br=0
+         end          
+         -- 4th row    
+         -- 1
+         Frame SGPanel#13
+           caption=Slot #13
+           x=0
+           y=75%
+           width=25%
+           height=25%
+         kids
+           Button NewGame#13
+            x=0
+            y=25-
+            width=50%
+            height=25
+            caption=New
+           Button LoadGame#13
+            x=50%
+            y=25-
+            width=50%
+            height=25
+            caption=Resume
+           Frame GameCanvas#13
+            x=0
+            y=0
+            width=100%
+            height=25-
+            br=0
+            bg=0
+            br=0
+         end          
+         -- 2
+         Frame SGPanel#14
+           caption=Slot #14
+           x=25%
+           y=75%
+           width=25%
+           height=25%
+         kids
+           Button NewGame#14
+            x=0
+            y=25-
+            width=50%
+            height=25
+            caption=New
+           Button LoadGame#14
+            x=50%
+            y=25-
+            width=50%
+            height=25
+            caption=Resume
+           Frame GameCanvas#14
+            x=0
+            y=0
+            width=100%
+            height=25-
+            br=0
+            bg=0
+            br=0
+         end          
+         -- 3
+         Frame SGPanel#15
+           caption=Slot #15
+           x=50%
+           y=75%
+           width=25%
+           height=25%
+         kids
+           Button NewGame#15
+            x=0
+            y=25-
+            width=50%
+            height=25
+            caption=New
+           Button LoadGame#15
+            x=50%
+            y=25-
+            width=50%
+            height=25
+            caption=Resume
+           Frame GameCanvas#15
+            x=0
+            y=0
+            width=100%
+            height=25-
+            br=0
+            bg=0
+            br=0
+         end   
+         Panel SG_Kthura
+           x=96-
+           y=96-
+           witdth=96
+           height=96
+           picflags=CENTER
+           pic=Assets/Kthura.png
+                
+      end  
+      tab Achievement API
+       br=100
+       bg=0
+       bb=100
+       r=200
+       g=0
+       b=255
+      #kids
+      #end 
+      tab Game Version
+       br=100
+       bg=0
+       bb=100
+       r=200
+       g=0
+       b=255
+      #kids
+      #end
+   end
+end    
+       
+       
+      
