@@ -506,7 +506,26 @@ kids
            height=96
            picflags=CENTER
            pic=Assets/Kthura.png
-                
+         Panel SG_ScreenPanel
+           x=75%
+           y=75%
+           width=10%
+           height=25%
+           kids
+             Radio SG_Full
+               x=0
+               y=0
+               width=100%
+               height=25
+               caption=Full Screen
+               state=checked
+             Radio SG_Windowed
+               x=0
+               y=25
+               width=100%
+               height=25
+               caption=Windowed
+           end           
       end  
       tab Achievement API
        br=100
