@@ -534,8 +534,148 @@ kids
        r=200
        g=0
        b=255
-      #kids
-      #end 
+      kids
+        Frame NET_Information
+          x=0
+          y=0
+          width=100%
+          height=100
+          caption=Info
+          kids
+             Label NET_InfoLabel
+               x=0
+               y=0
+               width=100%
+               height=25
+               caption=This game has many trophies or achievents you can acquire. Moerker supports the networks below to log these onto the internet so you can show off. ;)
+               r=255
+               b=255
+               g=0
+             Label NET_InfoLabel2
+               x=0
+               y=50
+               height=25
+               width=100%
+               caption=These features only work for unmodified games, and only affect games created after you fill out these settings.
+               r=255
+               g=0
+               b=255                 
+          end
+        Frame NET_Anna
+           x=0
+           y=100
+           width=100%
+           height=100
+           caption=Anna  
+           kids
+              Label NET_AnnaInfo
+                 width=100%
+                 height=25
+                 caption=Anna is my personal network. Anna gives points for your achievements. Other games using Anna could even reward you for what you do in Moerker.
+                 r=255
+                 b=255
+                 g=0
+              Label NET_AnnaIDLab
+                 width=25%
+                 height=25
+                 y=25
+                 r=255
+                 b=255
+                 g=0
+                 caption=AnnaID:
+              Label NET_AnnaSecuLab
+                 width=25%
+                 height=25
+                 y=50
+                 r=255
+                 g=0
+                 b=255
+                 caption=Anna Secu Code:
+              TextField NET_Anna_ID
+                 width=30%
+                 height=25
+                 x=25%
+                 y=25
+                 r=0
+                 g=255
+                 b=255
+                 br=0
+                 bg=0
+                 bb=0
+              TextField NET_Anna_Secu            
+                 width=60%
+                 height=25
+                 x=25%
+                 y=50
+                 r=0
+                 g=255
+                 b=255
+                 br=0
+                 bg=0
+                 bb=0
+              Button NET_Anna_Create
+                 x=55%
+                 y=25
+                 width=30%
+                 height=25
+                 caption=Create Anna Account   
+           end
+        Frame NET_GameJolt
+           x=0
+           y=200
+           width=100%
+           height=100
+           caption=Game Jolt
+           kids
+              Label NET_GJ_Info
+                 caption=Game Jolt is a site for Indie Games set up and run by David and Yaprak DeCarmine. Check it out for cool games.
+                 x=0
+                 y=0
+                 width=100%
+                 height=25
+                 r=255
+                 g=0
+                 b=255
+              Label NET_GJ_UserLab
+                 r=255
+                 g=0
+                 b=255
+                 width=25%
+                 y=25
+                 height=25
+                 caption=User Name:
+              Label NET_GJ_TokenLab
+                 r=255
+                 g=0
+                 b=255
+                 width=25%
+                 y=50
+                 height=25
+                 caption=Token:
+              TextField NET_GJ_User
+                 width=30%
+                 height=25
+                 x=25%
+                 y=25
+                 r=0
+                 g=255
+                 b=255
+                 br=0
+                 bg=0
+                 bb=0
+              TextField NET_GJ_Token            
+                 width=30%
+                 height=25
+                 x=25%
+                 y=50
+                 r=0
+                 g=255
+                 b=255
+                 br=0
+                 bg=0
+                 bb=0                        
+           end
+      end 
       tab Game Version
        br=100
        bg=0
