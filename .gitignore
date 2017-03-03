@@ -18,3 +18,4 @@ Thumbs.db
 # Eclipse shit I don't need
 .settings
 .project
+.buildproject
