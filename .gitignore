@@ -14,3 +14,7 @@ Launcher/Assets
 ._*
 Thumbs.db
 
+
+# Eclipse shit I don't need
+.settings
+
