@@ -658,7 +658,7 @@ kids
                  y=50
                  height=25
                  caption=Token:
-              TextField NET_GJ_User
+              TextField NET_GameJolt_User
                  width=30%
                  height=25
                  x=25%
@@ -669,7 +669,7 @@ kids
                  br=0
                  bg=0
                  bb=0
-              TextField NET_GJ_Token            
+              TextField NET_GameJolt_Token            
                  width=30%
                  height=25
                  x=25%
