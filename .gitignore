@@ -6,6 +6,9 @@ Launcher/Assets
 *.app
 *.exe
 
+# An no Maan builds either
+*.maan
+
 # And no assembly translations of blitzmax code either.
 .bmx
 
