@@ -1,8 +1,0 @@
-[vars]
-Title=Moerker
-Author=Jeroen P. Broks
-Console=Show
-StartForm=main
-exe=Moerker
-file.macicon=Launcher/icons/kthura.icns
-formsavedir=$AppSupport$/Phantasar Productions/LAURA2/Moerker/Launcher
