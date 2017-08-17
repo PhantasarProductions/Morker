@@ -37,7 +37,9 @@ version: 17.08.17
 
 print("Morker - By Jeroen Broks")
 
+
 -- *import chain_lunamorica
+-- *import flow
 
 mkl.version("Morker - ILoveYou.lua","17.08.17")
 mkl.lic    ("Morker - ILoveYou.lua","Phantasar Closed License")
@@ -55,6 +57,7 @@ function love.load()
    if love.filesystem.isFile("config/config.lua") then config = j_love_import('config/config.lua') end
    config = config or { screen='full'}
    saveconfig() 
+   chain.go(({[false]='NEWGAME',[true]='STARTSCREEN'}))
 end
 
 function love.quit()
