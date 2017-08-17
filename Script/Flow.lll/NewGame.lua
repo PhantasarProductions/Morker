@@ -34,33 +34,323 @@
      misrepresented as being the original software.
   3. This notice may not be removed or altered from any source distribution.
 ]]
+
+local netresults = {}
+local start_config = { Net = { GameJolt=false, Anna=false }, Login = {GameJolt={User='',Token=''},Anna={ID='',Secu=''}}, lang='English'}
 local flow = {}
+local go
 local game_setup = {
 
         -- Networks
-        Networks = {},
-        Anna = {},
-        CreateAnna = {},
-        GameJolt = {},
+        Networks = {
+                     kind='pivot',y=100,x=0,kids = {
+                     {
+                        kind='picture',
+                        image='text:Welcome to this game',
+                        font="Fonts/Highway.ttf", fontsize=15,
+                        hot='c',
+                        PR=255,PB=255,PG=0,
+                        x=400                        
+                     },
+                     {
+                        kind='picture',
+                        image='text:Do you wish to connect to the networks below?',
+                        font="Fonts/Highway.ttf", fontsize=15,
+                        y=40,x=400,
+                        hot='c',
+                        PR=255,PB=255,PG=0
+                     },
+                     {
+                        kind='checkbox',
+                        FR=255,FG=180,FB=0,
+                        x=300,y=80,
+                        enabled=true,
+                        action=function(g) start_config.Net.Anna=g.checked end,
+                        kids = { { kind='label',caption='Anna',font="Fonts/Highway.ttf", fontsize=15,x=50,FR=0,FG=255,FB=255 } } 
+                        
+                     },
+                     {
+                        kind='checkbox',
+                        FR=255,FG=180,FB=0,
+                        x=300,y=120,
+                        enabled=true,
+                        action=function(g) start_config.Net.GameJolt=g.checked end,
+                        kids = { { kind='label',caption='Game Jolt',font="Fonts/Highway.ttf", fontsize=15,x=50,FR=0,FG=255,FB=255 } } 
+                        
+                     } ,
+                     {
+                        kind='button',
+                        FR=0,FG=0,FB=0,
+                        BR=255,BG=180,BB=0,
+                        x=400,y=160,
+                        caption="Next >",
+                        font="Fonts/Highway.ttf", fontsize=15,
+                        action=function(g) 
+                           print("Button hit, so let's go!")
+                           if     start_config.Net.Anna     then go('Anna')
+                           elseif start_config.Net.GameJolt then go('GameJolt')
+                           else                                  go('PickLanguage') end
+                        end   
+                     }                       
+                                             
+                   }
+                  },
+        Anna = {kind='pivot',y=100,x=40, kids={
+             {
+                 kind='label',
+                 caption="ID Number:",
+                 font="Fonts/Highway.ttf", fontsize=15,
+                 x=40,y=0,FR=255,FG=0,FB=255            
+             },
+             {
+                 kind='label',
+                 caption="Secu Code:",
+                 font="Fonts/Highway.ttf", fontsize=15,
+                 x=40,y=40,FR=255,FG=0,FB=255                 
+             },
+             AnU = { 
+                 kind='textfield',
+                 font="Fonts/Highway.ttf", fontsize=15,
+                 FR=0,FG=0,FB=0,
+                 BR=255,BG=180,BB=0,
+                 x=400,y=0,
+                 w=200,h=20,
+                 typing=function(g)
+                     start_config.Login.Anna.ID=g.text
+                     g.parent.kids.Ok.visible = start_config.Login.Anna.ID~="" and start_config.Login.Anna.Secu~=""
+                 end
+             },
+             AnS = { 
+                 kind='textfield',
+                 font="Fonts/Highway.ttf", fontsize=15,
+                 FR=0,FG=0,FB=0,
+                 BR=255,BG=180,BB=0,
+                 x=400,y=40,
+                 w=200,h=20,
+                 typing=function(g)
+                     start_config.Login.Anna.Secu=g.text
+                     g.parent.kids.Ok.visible = start_config.Login.Anna.ID~="" and start_config.Login.Anna.Secu~=""
+                 end
+             },
+             Ok = { 
+                 kind='button',x=400,y=80, 
+                 FR=0,FG=0,FB=0,
+                 BR=255,BG=180,BB=0,
+                 caption='Next >',
+                 visible=false,
+                 action=function(g) 
+                   print("Button hit, so let's go!")
+                   if     start_config.Net.GameJolt then go('GameJolt')
+                   else                                  go('PickLanguage') end
+                 end   
+
+             },
+             { 
+                 kind='button',x=40,y=80, 
+                 FR=0,FG=0,FB=0,
+                 BR=255,BG=180,BB=0,
+                 caption='Create Anna account',
+                 action=function(g)
+                     go("CreateAnna")                      
+                 end
+             }
+             
+        }},
+                 
+        CreateAnna = {kind='pivot',y=100,x=40, kids = {
+             {
+                  kind='label',x=20,y=0,FR=255,FG=0,FB=255,
+                  font="Fonts/Highway.ttf", fontsize=15,
+                  caption="Please enter a screen name and hit the continue button to go on"
+             },
+             UN = {
+                 kind='textfield',x=20,y=40,w=200,
+                 FR=0,FG=0,FB=0,
+                 BR=255,BG=180,BB=0,
+                 typing=function (g)
+                    g.parent.kids.OK.visible=g.text~=""
+                 end                                       
+             },
+             OK= {
+                 kind='button',x=40,y=80, 
+                 FR=0,FG=0,FB=0,
+                 BR=255,BG=180,BB=0,
+                 caption='Create Anna account',
+                 action=function(g)
+                    local suc,dat = AnnaCreate(g.parent.kids.UN.text)
+                    if suc then
+                       g.parent.parent.kids.Anna.kids.AnU.text=dat.onlineid
+                       g.parent.parent.kids.Anna.kids.AnS.text=dat.secucode
+                       g.parent.parent.kids.Anna.kids.Ok .visible=true
+                       start_config.Login.Anna.Secu = dat.secucode
+                       start_config.Login.Anna.ID   = dat.onlineid
+                       go("Anna")
+                    else
+                       g.parent.kids.ErrorLabel.caption="ERROR: "..dat   
+                    end
+                 end
+             },
+             Cancel ={
+                 kind='button',x=40,y=120, 
+                 FR=255,FG=255,FB=0,
+                 BR=255,BG=000,BB=0,
+                 caption='Cancel',
+                 action=function(g) go ( "Anna" ) end
+             },
+             ErrorLabel = {
+                 kind='label',
+                 x=40,y=160,
+                 FR=255,FG=0,FB=0,
+                 caption="   "
+             } 
+        }},
+        GameJolt = {kind='pivot',y=100,x=40,kids={
+             {
+                 kind='label',
+                 caption="User Name:",
+                 font="Fonts/Highway.ttf", fontsize=15,
+                 x=40,y=0,FR=255,FG=0,FB=255            
+             },
+             {
+                 kind='label',
+                 caption="Token:",
+                 font="Fonts/Highway.ttf", fontsize=15,
+                 x=40,y=40,FR=255,FG=0,FB=255                 
+             },
+             GJU = { 
+                 kind='textfield',
+                 typing=function(g)
+                     start_config.Login.GameJolt.User=g.text
+                     g.parent.kids.Ok.visible = start_config.Login.GameJolt.User~="" and start_config.Login.GameJolt.Token~=""
+                 end,
+                 font="Fonts/Highway.ttf", fontsize=15,
+                 FR=0,FG=0,FB=0,
+                 BR=255,BG=180,BB=0,
+                 x=400,y=0,
+                 w=200,h=20
+                 
+             },
+             GJT={ 
+                 kind='textfield',
+                 typing=function(g)
+                     start_config.Login.GameJolt.Token=g.text
+                     g.parent.kids.Ok.visible = start_config.Login.GameJolt.User~="" and start_config.Login.GameJolt.Token~=""
+                 end,
+                 font="Fonts/Highway.ttf", fontsize=15,
+                 FR=0,FG=0,FB=0,
+                 BR=255,BG=180,BB=0,
+                 x=400,y=40,
+                 w=200,h=20                 
+             },
+             Ok={             
+                 kind='button',x=400,y=80, 
+                 FR=0,FG=0,FB=0,
+                 BR=255,BG=180,BB=0,
+                 caption='Next >',
+                 visible=false,
+                 action=function(g)
+                     go('PickLanguage')
+                 end     
+             }
+        }},
         
-        -- Language
-        PickLangage = {}
+        PickLanguage = {kind='pivot',y=100,x=40,kids={
+            {
+                  kind='label',
+                  FR=255,FG=0,FB=255,
+                  caption="Pick your scenario language:",
+                  font="Fonts/Highway.ttf", fontsize=15,
+            },
+            {
+                  kind='label',
+                  FR=255,FG=0,FB=255,
+                  y=20,
+                  caption="Please note this ONLY affects",
+                  font="Fonts/Highway.ttf", fontsize=15,
+            },
+            {
+                  kind='label',
+                  FR=255,FG=0,FB=255,
+                  y=40,
+                  caption="the scenario.",
+                  font="Fonts/Highway.ttf", fontsize=15,
+            },
+            {
+                  kind='label',
+                  FR=255,FG=0,FB=255,
+                  y=60,
+                  caption="System text, inventory items etc. remain in English",
+                  font="Fonts/Highway.ttf", fontsize=15,
+            },
+            {
+                  kind='radio',
+                  FR=255,FG=180,FB=0,
+                  y=100,
+                  checked=true,
+                  action=function(g) start_config.lang='English' end
+            },
+            {
+                  kind='radio',
+                  FR=255,FG=180,FB=0,
+                  y=120,
+                  checked=false,
+                  action=function(g) start_config.lang='Dutch' end
+            },
+            {     
+                  kind='label', 
+                  FR=0,FG=255,FB=255,
+                  y=100, x=100,
+                  caption='English'
+            },
+            {     
+                  kind='label', 
+                  FR=0,FG=255,FB=255,
+                  y=120, x=100,
+                  caption='Dutch (Nederlands)'
+            }      ,      
+             Ok={             
+                 kind='button',x=400,y=80, 
+                 FR=0,FG=0,FB=0,
+                 BR=255,BG=180,BB=0,
+                 caption='Next >',
+                 action=function(g)
+                     error('Game Start Not Yet Scripted')
+                 end     
+             }
+                        
+        }}
          
      }
      
+
      
 local screen = { kind='strike',r=0,g=0,b=0,x=0,h=0,kids = {
                      
                      {
-                         image='GFX/LOGO/MORKER.PNG',
+                         kind='picture',
+                         image='GFX/LOGOS/MORKER.PNG',
                          hot='c',
                          x=400,
-                         y=50
+                         y=50,
+                         --kids = {
+                         -- Below the functions are put in.
+                         --}
                      }
                      
                           
                }
 }
+
+function go(n)
+ for k,v in pairs(game_setup) do 
+    v.visible = k==n
+    screen.kids[k]=screen.kids[k] or v
+    --print("Added game_setup screen: "..k.." ("..type(v)..")")
+    --print(serialize('gamesetupscreen',screen))
+ end    
+end
+go "Networks"
+
 
 luna.update(screen)
 lunar.NEWGAME = screen     

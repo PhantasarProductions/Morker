@@ -40,6 +40,9 @@ print("Morker - By Jeroen Broks")
 
 -- *import chain_lunamorica
 -- *import flow
+-- *import AnnaAndGameJolt
+
+luna = luna or lunamorica -- LAAAAAZY!
 
 mkl.version("Morker - ILoveYou.lua","17.08.17")
 mkl.lic    ("Morker - ILoveYou.lua","Phantasar Closed License")
@@ -57,7 +60,8 @@ function love.load()
    if love.filesystem.isFile("config/config.lua") then config = j_love_import('config/config.lua') end
    config = config or { screen='full'}
    saveconfig() 
-   chain.go(({[false]='NEWGAME',[true]='STARTSCREEN'}))
+   chain.go(({[false]='NEWGAME',[true]='STARTSCREEN'})[love.filesystem.isFile("savegames/dir.lua")])
+   for k,f in spairs(chain.x) do print("X-EVENT font for: "..k.." > "..type(f)) end -- Debug line
 end
 
 function love.quit()

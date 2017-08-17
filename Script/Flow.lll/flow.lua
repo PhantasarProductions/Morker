@@ -17,11 +17,17 @@
      misrepresented as being the original software.
   3. This notice may not be removed or altered from any source distribution.
 ]]
+
+function nada() end
+
+luna = luna or lunamorica -- LAAAAAZY!
 local list = love.filesystem.getDirectoryItems( "$$mydir$$" )
 for imp in each(list) do
     local gn = lower(imp)
-    if f~="FLOW.LUA" and suffixed(imp,".LUA") then
+    if imp~="FLOW.LUA" and suffixed(imp,".LUA") then
        print("Importing FLOW: "..left(imp,#imp-4))
        chain.map[left(imp,#imp-4)] = j_love_import("$$mydir$$/"..imp)
+       local tc = chain.map[left(imp,#imp-4)]
+       tc.draw = tc.draw or nada
     end
 end       
