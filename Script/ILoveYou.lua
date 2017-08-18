@@ -40,7 +40,7 @@ print("Morker - By Jeroen Broks")
 
 -- *import chain_lunamorica
 -- *import AnnaAndGameJolt
--- *import qgfx2
+-- *import kthura
 
 
 -- *import glob

@@ -1,5 +1,5 @@
 --[[
-  glob.lua
+  Field.lua
   Version: 17.08.18
   Copyright (C) 2017 Jeroen Petrus Broks
   
@@ -34,14 +34,16 @@
      misrepresented as being the original software.
   3. This notice may not be removed or altered from any source distribution.
 ]]
-local glob = {
-
-    scores = {},
-    
-    map=nil    
-
-}
+local f = {}
 
 
 
-return glob
+function f.draw()
+   local gd = gamedata.data
+   gd.camx = gd.camx or 0
+   gd.camy = gd.camy or 0
+   glob.map:draw(gd.layer,gd.camx,gd.camy)
+end
+
+
+return f
