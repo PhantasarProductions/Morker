@@ -1,6 +1,6 @@
 --[[
   NewGame.lua
-  Version: 17.08.17
+  Version: 17.08.18
   Copyright (C) 2017 Jeroen Petrus Broks
   
   ===========================
@@ -314,7 +314,9 @@ local game_setup = {
                  BR=255,BG=180,BB=0,
                  caption='Next >',
                  action=function(g)
-                     error('Game Start Not Yet Scripted')
+                     gamedata = { data = { scored = {}, score=0, inventory={ Zamzi=true }, map='CITY', layer='outcropping', mapcall='GameStart'},config=start_config}
+                     print ()
+                     chain.go("LOGIN")
                  end     
              }
                         

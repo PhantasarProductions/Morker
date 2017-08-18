@@ -32,19 +32,23 @@
   
  **********************************************
  
-version: 17.08.17
+version: 17.08.18
 ]]
 
 print("Morker - By Jeroen Broks")
 
 
 -- *import chain_lunamorica
--- *import flow
 -- *import AnnaAndGameJolt
+-- *import qgfx2
+
+
+-- *import glob
+-- *import flow
 
 luna = luna or lunamorica -- LAAAAAZY!
 
-mkl.version("Morker - ILoveYou.lua","17.08.17")
+mkl.version("Morker - ILoveYou.lua","17.08.18")
 mkl.lic    ("Morker - ILoveYou.lua","Phantasar Closed License")
 
 
