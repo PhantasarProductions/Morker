@@ -1,5 +1,5 @@
 --[[
-  Field.lua
+  UserInterface.lua
   Version: 17.08.19
   Copyright (C) 2017 Jeroen Petrus Broks
   
@@ -34,24 +34,64 @@
      misrepresented as being the original software.
   3. This notice may not be removed or altered from any source distribution.
 ]]
-local f = {}
 
-field=f
+-- *import qgfx2
 
-function f.updateinventory()
-  gamedata.data.inventorysorted = {}
-  for a,b in spairs(gamedata.data.inventory) do
-      if b then gamedata.data.inventorysorted[#gamedata.data.inventorysorted+1]=a end
-  end      
-end
-f.UpdateInventory = f.updateinventory
+local pic_items = {}
+ 
+luna.addgadget('socket',{
+      init=function(g,c)
+             print("Inventory socket #"..g.socket.." set onto ("..g.x..","..g.y..")") 
+           end,
+      draw=function(g)
+         if not gamedata.data.inventorysorted then field.UpdateInventory() end
+         Color(0,0,0,180)
+         Rect(g.ax,g.ay,g.w,g.h)
+         Color(255,255,255,255)
+         local i = gamedata.data.inventorysorted[g.socket]
+         if i then
+           pic_items[i] = pic_items[i] or love.graphics.newImage("GFX/INVENTORY/"..i:upper()..".PNG") or love.graphics.newText("? "..i.." ?")
+           love.graphics.draw(pic_items[i],g.ax,g.ay)
+         end
+      end
+})
 
-function f.draw()
-   local gd = gamedata.data
-   gd.camx = gd.camx or 0
-   gd.camy = gd.camy or 0
-   glob.map:draw(gd.layer,gd.camx,gd.camy)      
-end
+local Regular = { kind='pivot',x=0,y=0,visible=true,kids={
+        {
+          kind='picture',
+          image='GFX/UserInterface/Kthura.png',
+          y=50,
+          x=10
+        }
+}}
+
+local socket=0
+for x=200,600,30 do for y=10,120,30 do
+    socket = socket + 1
+    local newsocket = { kind="$socket", x=x, y=y, w=25, h=25, socket=socket }
+    Regular.kids[#Regular.kids+1] = newsocket
+end end    
+
+local Talk = { kind='pivot',x=0,y=0,visible=false,kids={ }}
 
 
-return f
+local UI = {
+
+       kind='picture',
+       x=0,
+       y=450,
+       h=150,
+       w=800,
+       image='GFX/UserInterface/Plasma800.png',
+       PR=255,PG=0,PB=255,
+       kids = {
+           Regular = Regular,
+           Talk = Talk,
+           Nothing = {kind='pivot'}
+       }
+}
+
+luna.update(UI)
+
+
+return UI
