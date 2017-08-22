@@ -41,12 +41,15 @@ print("Morker - By Jeroen Broks")
 -- *import chain_lunamorica
 -- *import AnnaAndGameJolt
 -- *import kthura
+-- *import scenario
 
+scen = scen or scenario 
 luna = luna or lunamorica -- LAAAAAZY!
 
 -- local imports
 -- *import glob
 -- *import UserInterface
+-- *import EventChain
 -- *import flow
 
 UI=UserInterface  assert(UI,"General User Interface not loaded")
