@@ -32,7 +32,7 @@
   
  **********************************************
  
-version: 17.08.19
+version: 17.08.22
 ]]
 
 print("Morker - By Jeroen Broks")
@@ -56,7 +56,7 @@ UI=UserInterface  assert(UI,"General User Interface not loaded")
 lunar.FIELD = UI
 
 
-mkl.version("Morker - ILoveYou.lua","17.08.19")
+mkl.version("Morker - ILoveYou.lua","17.08.22")
 mkl.lic    ("Morker - ILoveYou.lua","Phantasar Closed License")
 
 
