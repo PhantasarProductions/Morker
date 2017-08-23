@@ -57,6 +57,17 @@ luna.addgadget('socket',{
       end
 })
 
+luna.patchgadget('checkbox','eye',{
+       
+       draw = function(g)
+           local b2n = { [true]=1, [false]=0}
+           local b = b2n[g.checked]
+           g.eye = g.eye or {}
+           g.eye[b] = g.eye[b] or love.graphics.newImage("GFX/USERINTERFACE/EYE/"..b..".PNG")
+           love.graphics.draw(g.eye[b],g.ax,g.ay)   
+       end
+})
+
 local Regular = { kind='pivot',x=0,y=0,visible=true,kids={
         { 
           kind='$eventchain',
@@ -68,6 +79,12 @@ local Regular = { kind='pivot',x=0,y=0,visible=true,kids={
           image='GFX/UserInterface/Kthura.png',
           y=50,
           x=10
+        },{
+          kind='$eye',
+          x=650,
+          y=15,
+          w=100,
+          h=100,
         }
 }}
 

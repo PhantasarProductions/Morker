@@ -102,7 +102,7 @@ local function ec_exe(e)
    else
      error("Event function string unknown")
    end
-   if ce.dontwait or w then running=running+1 end
+   if ce.dontwait or w then eventchain.running=eventchain.running+1 end
 end                
 
 lunamorica.addgadget("$eventchain",{
