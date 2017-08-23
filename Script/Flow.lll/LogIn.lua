@@ -51,8 +51,8 @@ lgn.dat = {
           Check=function() return true end,
           line="Loading the game",          
           action=function()
-             print("Loading Map: "..gamedata.data.map)
-             glob.map = kthura.load("MAPS/"..upper(gamedata.data.map)) 
+             -- print("Loading Map: "..gamedata.data.map)
+             FIELD.LoadMap(gamedata.data.map) --glob.map = kthura.load("MAPS/"..upper(gamedata.data.map)) 
              chain.go("FIELD")
              --error("Sorry this is all we got now.") 
           end

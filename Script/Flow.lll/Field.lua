@@ -36,6 +36,11 @@
 ]]
 local f = {}
 
+local function MSE(self,tag) -- Map Event Start. Only used to turn the event table into a class
+    assert(self[tag],errortag("events.start",{tag}," No event with that tag found"))
+    StartEvent(self[tag])
+end    
+
 field=f
 
 function f.updateinventory()
@@ -53,5 +58,30 @@ function f.draw()
    glob.map:draw(gd.layer,gd.camx,gd.camy)      
 end
 
+function f.LoadMap(mapfile)    
+             print("Loading Map: "..mapfile)
+             gamedata.data.map = mapfile:upper()
+             glob.map = kthura.load("MAPS/"..upper(gamedata.data.map)) 
+             print("Importing MapScript: "..mapfile..".lua")
+             glob.mapscript = j_love_import("/SCRIPT/MAPS/"..gamedata.data.map..".LUA") or {}             
+             local m = glob.mapscript
+             ;(m.onLoad or Nada)()
+             glob.mapcambound = {} 
+             m.events = m.events or {} -- crash prevention
+             m.events.start = MSE
+end
+
+function f.CamPoint(d1,d2)
+   local gd = gamedata.data
+   if type(d1)=='string' then 
+      gd.camx = map.TagMap[d1]
+      gd.camy = map.TagMap[d2]
+   elseif type(d1)=='number' and type(d2)=='number' then
+      gd.camx=d1
+      gd.camy=d2
+   else
+      error(errortag("FIELD.CamPoint",{d1,d2},'Illegal CamPoint Request'))
+   end      
+end 
 
 return f

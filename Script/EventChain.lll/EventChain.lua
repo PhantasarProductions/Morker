@@ -34,6 +34,8 @@
      misrepresented as being the original software.
   3. This notice may not be removed or altered from any source distribution.
 ]]
+
+
 -- *import lunamorica
 
 --[[
@@ -103,4 +105,13 @@ lunamorica.addevent("$eventchain",{
     end
             
 })
+
+function StartEvent(evchain)
+  eventchain = evchain
+  eventchain.running=1
+end
+
+function EventRunning()
+  return eventchain.running~=nil,eventchain.running
+end
 
