@@ -1,6 +1,6 @@
 --[[
   UserInterface.lua
-  Version: 17.08.19
+  Version: 17.08.23
   Copyright (C) 2017 Jeroen Petrus Broks
   
   ===========================
@@ -37,6 +37,7 @@
 
 -- *import qgfx2
 
+
 local pic_items = {}
  
 luna.addgadget('socket',{
@@ -57,7 +58,12 @@ luna.addgadget('socket',{
 })
 
 local Regular = { kind='pivot',x=0,y=0,visible=true,kids={
-        {
+        { 
+          kind='$eventchain',
+          enabled=true,
+          visible=true
+        },
+        {        
           kind='picture',
           image='GFX/UserInterface/Kthura.png',
           y=50,

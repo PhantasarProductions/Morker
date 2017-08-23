@@ -57,7 +57,9 @@ function f.draw()
    local gd = gamedata.data
    gd.camx = gd.camx or 0
    gd.camy = gd.camy or 0
-   glob.map:draw(gd.layer,gd.camx,gd.camy)      
+   glob.map:draw(gd.layer,gd.camx,gd.camy)
+   local a1,a2 = EventRunning()   
+   QText(sval(a1).."/"..sval(a2),5,5)   
 end
 
 function f.LoadMap(mapfile)    
@@ -69,22 +71,37 @@ function f.LoadMap(mapfile)
              local m = glob.mapscript
              ;(m.onLoad or Nada)()
              glob.mapcambound = {} 
+             if not m.events then print("WARNING! Map script has no events") end
              m.events = m.events or {} -- crash prevention
              m.events.start = MSE
+             map = glob.map
+             for l,tm in spairs(map.TagMap) do
+              print("- layer: "..l)
+              for t,d in spairs(tm) do
+                 print("  = tag "..t.." does contain a "..type(d))
+                 for of,od in spairs(d) do
+                     print("     = field "..of.." = "..sval(od))
+                 end   
+              end
+            end   
 end
 
 function f.update(dt)
    if gamedata.data.mapcall then 
-      glob.map.events:start(gamedata.data.mapcall)
+      print("Starting startcall event: "..gamedata.data.mapcall)
+      glob.mapscript.events:start(gamedata.data.mapcall)
       gamedata.data.mapcall=nil
    end
 end   
 
 function f.CamPoint(d1,d2)
-   local gd = gamedata.data
+   local gd = gamedata.data   
    if type(d1)=='string' then 
-      gd.camx = map.TagMap[d1]
-      gd.camy = map.TagMap[d2]
+      print(gamedata.data.layer..">"..d1)
+      assert(map.TagMap[gamedata.data.layer][d1],errortag("CamPoint,",{d1,d2},"There is no object named `"..d1.."` in layer `"..gamedata.data.layer.."`"))
+      gd.camx = map.TagMap[gamedata.data.layer][d1].COORD.x
+      gd.camy = map.TagMap[gamedata.data.layer][d1].COORD.y
+      print("Camera point set to object: "..d1)
    elseif type(d1)=='number' and type(d2)=='number' then
       gd.camx=d1
       gd.camy=d2
@@ -93,4 +110,5 @@ function f.CamPoint(d1,d2)
    end      
 end 
 
+lunar.FIELD=f
 return f

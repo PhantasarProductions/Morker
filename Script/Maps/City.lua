@@ -39,5 +39,8 @@ local m = {events=e}
 
 
 e.GameStart = {
-     {func='FIELD.CamPoint("Start")'}
+     {func='FIELD.CamPoint("GameStart")', evt='draw'}
 }
+
+
+return m

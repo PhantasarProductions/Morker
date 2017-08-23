@@ -70,6 +70,14 @@
 
 ]]
 
+-- *define chat
+
+local function chat(a)
+   -- *if chat
+   print("eventchain: "..a)
+   -- *fi
+end   
+
 local eventchain = {}
 
 local function ec_exe(e)
@@ -82,14 +90,15 @@ local function ec_exe(e)
       eventchain.running = nil 
       return
    end
-   if e~=ce.evt or 'update' then return end
-   if type(e.func)=='string' then
-      local ok,mychunk = pcall(loadstring,e.func) 
+   if e~=(ce.evt or 'update') then return end
+   if type(ce.func)=='string' then
+      chat((e or 'update').." string func")
+      local ok,mychunk = pcall(loadstring,ce.func) 
       ok = ok or assert(ok,"Event string compile error\n"..mychunk)
       ok,w = pcall(mychunk)
-      ok = ok or assert(ok,"Event string runtime error:\n"..ret)
-   elseif type(e.func)=='function' then
-      w = e.func()
+      ok = ok or assert(ok,"Event string runtime error:\n"..w)
+   elseif type(ce.func)=='function' then
+      w = ce.func()
    else
      error("Event function string unknown")
    end
@@ -98,9 +107,11 @@ end
 
 lunamorica.addgadget("$eventchain",{
     draw=function()      
+      --chat("draw")
       ec_exe('draw')
     end,
-    update=function()
+    lupdate=function(dt)
+      --chat("update")
       ec_exe('update')
     end
             
