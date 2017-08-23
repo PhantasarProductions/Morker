@@ -1,6 +1,6 @@
 --[[
   EventChain.lua
-  Version: 17.08.22
+  Version: 17.08.23
   Copyright (C) 2017 Jeroen Petrus Broks
   
   ===========================
@@ -96,7 +96,7 @@ local function ec_exe(e)
    if ce.dontwait or w then running=running+1 end
 end                
 
-lunamorica.addevent("$eventchain",{
+lunamorica.addgadget("$eventchain",{
     draw=function()      
       ec_exe('draw')
     end,

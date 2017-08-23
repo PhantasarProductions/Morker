@@ -1,6 +1,6 @@
 --[[
   Field.lua
-  Version: 17.08.19
+  Version: 17.08.23
   Copyright (C) 2017 Jeroen Petrus Broks
   
   ===========================
@@ -70,6 +70,13 @@ function f.LoadMap(mapfile)
              m.events = m.events or {} -- crash prevention
              m.events.start = MSE
 end
+
+function f.update(dt)
+   if gamedata.data.mapcall then 
+      glob.map.events:start(gamedata.data.mapcall)
+      gamedata.data.mapcall=nil
+   end
+end   
 
 function f.CamPoint(d1,d2)
    local gd = gamedata.data
