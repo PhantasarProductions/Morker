@@ -35,6 +35,8 @@
   3. This notice may not be removed or altered from any source distribution.
 ]]
 local f = {}
+FIELD=f
+
 
 local function MSE(self,tag) -- Map Event Start. Only used to turn the event table into a class
     assert(self[tag],errortag("events.start",{tag}," No event with that tag found"))

@@ -1,7 +1,7 @@
 --[[
   flow.lua
   
-  version: 17.08.17
+  version: 17.08.23
   Copyright (C) 2017 Jeroen P. Broks
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -18,7 +18,9 @@
   3. This notice may not be removed or altered from any source distribution.
 ]]
 
-function nada() end
+local flow = chain.map
+
+function nada() end Nada=nada NADA=nada
 
 luna = luna or lunamorica -- LAAAAAZY!
 local list = love.filesystem.getDirectoryItems( "$$mydir$$" )
@@ -31,3 +33,6 @@ for imp in each(list) do
        tc.draw = tc.draw or nada
     end
 end       
+
+
+return flow
