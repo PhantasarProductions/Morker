@@ -32,7 +32,7 @@
   
  **********************************************
  
-version: 17.08.23
+version: 17.08.26
 ]]
 
 print("Morker - By Jeroen Broks")
@@ -50,13 +50,14 @@ luna = luna or lunamorica -- LAAAAAZY!
 -- *import glob
 -- *import EventChain
 -- *import UserInterface
+-- *import subs
 -- *import flow
 
 UI=UserInterface  assert(UI,"General User Interface not loaded")
 lunar.FIELD = UI
 
 
-mkl.version("Morker - ILoveYou.lua","17.08.23")
+mkl.version("Morker - ILoveYou.lua","17.08.26")
 mkl.lic    ("Morker - ILoveYou.lua","Phantasar Closed License")
 
 

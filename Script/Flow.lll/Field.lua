@@ -1,6 +1,6 @@
 --[[
   Field.lua
-  Version: 17.08.23
+  Version: 17.08.26
   Copyright (C) 2017 Jeroen Petrus Broks
   
   ===========================
@@ -59,7 +59,8 @@ function f.draw()
    gd.camy = gd.camy or 0
    glob.map:draw(gd.layer,gd.camx,gd.camy)
    local a1,a2 = EventRunning()   
-   QText(sval(a1).."/"..sval(a2),5,5)   
+   UI.kids.Regular.visible = not a1
+   --QText(sval(a1).."/"..sval(a2),5,5) -- debug info   
 end
 
 function f.LoadMap(mapfile)    
@@ -83,6 +84,7 @@ function f.LoadMap(mapfile)
                      print("     = field "..of.." = "..sval(od))
                  end   
               end
+            scenario.LoadData('Maps/'..mapfile,"MAP",false)  
             end   
 end
 
@@ -110,5 +112,40 @@ function f.CamPoint(d1,d2)
    end      
 end 
 
+function f.SpawnPlayer(spot,xdata)
+    local xd = {}
+    if type(spot)=='string' then
+       local exitspot = glob.map.TagMap[gamedata.data.layer][spot]
+       if exitspot.DATA then xd.WIND = exitspot.DATA.WIND end
+    end
+    xd.WIND = xd.WIND or "South"
+    xd.TEXTURE = "GFX/ACTORS/BUNDLED/KTHURA/"..xd.WIND:upper()..".PICBUNDLE/"
+    xd.FRAME = 1   
+    for k,v in pairs(xdata or {}) do xd[k]=v end
+    PLAYER = kthura.Spawn(glob.map,gamedata.data.layer,spot,'PLAYER',xd)
+end
+
+function f.ScrollTo(p1,p2,pwait)
+   local tox,toy,wait
+   if type(p1)=='number' then   
+      tox,toy,wait=p1,(p2 or 0),pwait
+   elseif type(p1)=='table' then
+      tox=p1.x or p1.X or gamedata.data.camx or 0
+      toy=p1.y or p1.Y or gamedata.data.camy or 0
+      wait=p1.wait    
+   end
+   local ok
+   repeat
+     if gamedata.data.camx<tox then gamedata.data.camx=gamedata.data.camx+1 end
+     if gamedata.data.camx>tox then gamedata.data.camx=gamedata.data.camx-1 end
+     if gamedata.data.camy<toy then gamedata.data.camy=gamedata.data.camy+1 end
+     if gamedata.data.camy>toy then gamedata.data.camy=gamedata.data.camy-1 end
+     ok = gamedata.data.camy==toy and gamedata.data.camx==tox
+     if not wait then return ok end
+   until ok  
+   -- The 'wait' is only a safety precaution, since it's a pretty useless thing in a callback situation.
+   return ok -- Does this help?
+end
+   
 lunar.FIELD=f
 return f

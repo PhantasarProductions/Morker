@@ -1,6 +1,6 @@
 --[[
   UserInterface.lua
-  Version: 17.08.23
+  Version: 17.08.26
   Copyright (C) 2017 Jeroen Petrus Broks
   
   ===========================
@@ -69,11 +69,6 @@ luna.patchgadget('checkbox','eye',{
 })
 
 local Regular = { kind='pivot',x=0,y=0,visible=true,kids={
-        { 
-          kind='$eventchain',
-          enabled=true,
-          visible=true
-        },
         {        
           kind='picture',
           image='GFX/UserInterface/Kthura.png',
@@ -108,6 +103,11 @@ local UI = {
        image='GFX/UserInterface/Plasma800.png',
        PR=255,PG=0,PB=255,
        kids = {
+           EventHandler = { 
+              kind='$eventchain',
+              enabled=true,
+              visible=true
+           },
            Regular = Regular,
            Talk = Talk,
            Nothing = {kind='pivot'}

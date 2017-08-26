@@ -1,6 +1,6 @@
 --[[
   EventChain.lua
-  Version: 17.08.23
+  Version: 17.08.26
   Copyright (C) 2017 Jeroen Petrus Broks
   
   ===========================
@@ -70,7 +70,7 @@
 
 ]]
 
--- *define chat
+-- *undef chat
 
 local function chat(a)
    -- *if chat
@@ -98,7 +98,7 @@ local function ec_exe(e)
       ok,w = pcall(mychunk)
       ok = ok or assert(ok,"Event string runtime error:\n"..w)
    elseif type(ce.func)=='function' then
-      w = ce.func()
+      w = ce.func(ce.param)
    else
      error("Event function string unknown")
    end
