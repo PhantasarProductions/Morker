@@ -43,6 +43,7 @@ e.GameStart = {
      {func='FIELD.SpawnPlayer("GameStart") print("Spawned Kthura... I hope")',evt='draw', dontwait=true},
      {func='return MapTalk("STARTGAME1")',evt='draw'},
      {func=FIELD.ScrollTo,param={x=816,y=48},evt='draw'},
+     {func='return FIELD.TurnPlayer("West")',evt='draw',dontwait=true},
      {func='return MapTalk("STARTGAME2")',evt='draw'}
 }
 

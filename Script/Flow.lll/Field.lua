@@ -53,6 +53,19 @@ function f.updateinventory()
 end
 f.UpdateInventory = f.updateinventory
 
+function f.autoscroll()
+   if EventRunning() then return end
+   local gd = gamedata.data
+   local tm = glob.map.TagMap[gd.layer]
+   if not PLAYER then return end
+   gd.camx = PLAYER.COORD.x - 400
+   gd.camy = PLAYER.COORD.y - 250
+   if tm.CAM_LEFT   and gd.camx<    tm.CAM_LEFT.COORD.x then gd.camx=tm.CAM_LEFT.COORD.x end
+   if tm.CAM_TOP    and gd.camy<    tm.CAM_TOP.COORD.y  then gd.camy=tm.CAM_TOP.COORD.y end
+   if tm.CAM_RIGHT  and gd.camx+800>tm.CAM_LEFT.COORD.x then gd.camx=tm.CAM_LEFT.COORD.x end
+   if tm.CAM_BOTTOM and gd.camy+500>tm.CAM_TOP.COORD.y  then gd.camy=tm.CAM_TOP.COORD.y end
+end
+
 function f.draw()
    local gd = gamedata.data
    gd.camx = gd.camx or 0
@@ -61,6 +74,7 @@ function f.draw()
    local a1,a2 = EventRunning()   
    UI.kids.Regular.visible = not a1
    --QText(sval(a1).."/"..sval(a2),5,5) -- debug info   
+   if not a1 then f.autoscroll() end
 end
 
 function f.LoadMap(mapfile)    
@@ -124,6 +138,14 @@ function f.SpawnPlayer(spot,xdata)
     for k,v in pairs(xdata or {}) do xd[k]=v end
     PLAYER = kthura.Spawn(glob.map,gamedata.data.layer,spot,'PLAYER',xd)
 end
+
+function f.TurnPlayer(wind)
+   if not PLAYER then return print("WARNING! No player to turn!") end
+   PLAYER.WIND=wind
+   PLAYER.TEXTURE = "GFX/ACTORS/BUNDLED/KTHURA/"..PLAYER.WIND:upper()..".PICBUNDLE/"
+   print("Kthura turned "..wind)
+   return true
+end   
 
 function f.ScrollTo(p1,p2,pwait)
    local tox,toy,wait
