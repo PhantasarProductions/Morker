@@ -35,6 +35,7 @@
   3. This notice may not be removed or altered from any source distribution.
 ]]
 -- *import scenario
+-- *import Var
 
 local talking
 local talkconfig    = j_love_import("SCRIPT/DATA/TALK.LUA")
@@ -73,6 +74,13 @@ end
 
 function Talk(base,tag)
    if talking then return TalkCallBack() end
+   gamedata.data.VARS = gamedata.data.VARS or {}
+   Var.Reg(gamedata.data.VARS)
+   if not Done('&TAGS') then
+      --Var.D('<ouml>','\182\60')
+      --Var.D('Morker','M\246rker')
+      j_love_import("$$mydir$$/SPECIAAL.LUASCRIPT") -- Extention msy NEVER be .lua or the builder will FREAK OUT!
+   end
    -- If "talking" is not active, then let's parse the data out
    local scen=scenario
    assert(scen.data,errortag("Talk",{base,tag},"Scenario data not loaded"))
@@ -96,7 +104,7 @@ function Talk(base,tag)
        local w
        local y = 0
        for l in each(s.Lines) do
-           words = mysplit(l)
+           words = mysplit(Var.S(l))
            line = ""
            for i,w in ipairs(words) do
                if line ~= "" then line = line .. " " end
