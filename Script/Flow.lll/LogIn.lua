@@ -1,6 +1,6 @@
 --[[
   LogIn.lua
-  Version: 17.08.23
+  Version: 17.08.30
   Copyright (C) 2017 Jeroen Petrus Broks
   
   ===========================
@@ -52,6 +52,7 @@ lgn.dat = {
           line="Loading the game",          
           action=function()
              -- print("Loading Map: "..gamedata.data.map)
+             scenario.lang = gamedata.config.lang
              flow.FIELD.LoadMap(gamedata.data.map) --glob.map = kthura.load("MAPS/"..upper(gamedata.data.map)) 
              chain.go("FIELD")
              --error("Sorry this is all we got now.") 
