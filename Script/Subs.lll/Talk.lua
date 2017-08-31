@@ -1,6 +1,6 @@
 --[[
   Talk.lua
-  Version: 17.08.26
+  Version: 17.08.31
   Copyright (C) 2017 Jeroen Petrus Broks
   
   ===========================
@@ -44,6 +44,15 @@ local TalkFont      = love.graphics.newFont( "FONTS/HIGHWAY.TTF", 20 )
 
 talkconfig.PLAYER = talkconfig.KTHURA
 
+
+function StopTalking()
+     if not talking then return end
+     local seg = talking.segs[talking.seg]
+     if not seg then return end
+     (talkfunctions[seg.tag:upper()] or talkfunctions.GEN).Stop(seg.tag)
+     talking=nil
+end
+
 local function TalkCallBack()
     local seg = talking.segs[talking.seg]
     if not seg then
@@ -70,6 +79,7 @@ local function TalkCallBack()
     end
     return false
 end
+
 
 
 function Talk(base,tag)
@@ -146,4 +156,4 @@ function MapTalk(tag)
 end   
 
 
-return {Talk=Talk,MapTalk=MapTalk}
+return {Talk=Talk,MapTalk=MapTalk,StopTalking=StopTalking}

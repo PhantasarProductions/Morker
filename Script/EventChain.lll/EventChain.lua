@@ -1,6 +1,6 @@
 --[[
   EventChain.lua
-  Version: 17.08.26
+  Version: 17.08.31
   Copyright (C) 2017 Jeroen Petrus Broks
   
   ===========================
@@ -84,6 +84,10 @@ local function ec_exe(e)
    local w
    assert(eventchain,"Eventchain definition error")
    if not eventchain.running then return end
+   if love.mouse.isDown(1) and love.mouse.isDown(2) and eventchain.skipable then 
+      eventchain.running=#eventchain+1 
+      StopTalking()
+   end
    local ce = eventchain[eventchain.running]
    if not ce then 
       -- likely the event has ended
