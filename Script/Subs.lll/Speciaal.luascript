@@ -1,4 +1,5 @@
 -- The extention may NOT be .lua or the Love2D builder will FREAK OUT!
 Var.D("<ouml>","ö")
 Var.D("<euml>","ë")
+Var.D("<uuml>","ü")
 Var.D("Morker","Mörker")
