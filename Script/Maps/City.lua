@@ -39,6 +39,7 @@ local m = {events=e}
 
 
 e.GameStart = {
+     skipable=true,
      {func='FIELD.CamPoint("CAM_START")', evt='draw',dontwait=true},
      {func='FIELD.SpawnPlayer("GameStart") print("Spawned Kthura... I hope")',evt='draw', dontwait=true},
      {func='return MapTalk("STARTGAME1")',evt='draw'},
