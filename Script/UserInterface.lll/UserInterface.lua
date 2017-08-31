@@ -1,6 +1,6 @@
 --[[
   UserInterface.lua
-  Version: 17.08.26
+  Version: 17.08.31
   Copyright (C) 2017 Jeroen Petrus Broks
   
   ===========================
@@ -80,9 +80,18 @@ local Regular = { kind='pivot',x=0,y=0,visible=true,kids={
           y=15,
           w=100,
           h=100,
+        },
+        score={
+          kind='label',          
+          x=10,
+          y=-25,
+          fontsize=25,
+          alpha=180,
+          caption="--"
         }
 }}
 
+UIscore = Regular.kids.score
 local socket=0
 for x=200,600,30 do for y=10,120,30 do
     socket = socket + 1

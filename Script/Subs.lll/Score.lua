@@ -169,7 +169,7 @@ end
 
 function s.str()
   s.have = s.have or s.score()
-  return "Score: "..s.have.." or "..s.max.."  ("..math.ceil((s.have/s.max)*100)  
+  return "Score: "..s.have.." or "..s.max.."  ("..math.ceil((s.have/s.max)*100).."% complete)"
 end         
 
 function s.award(s)

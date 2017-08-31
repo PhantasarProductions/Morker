@@ -1,6 +1,6 @@
 --[[
   NewGame.lua
-  Version: 17.08.18
+  Version: 17.08.31
   Copyright (C) 2017 Jeroen Petrus Broks
   
   ===========================
@@ -315,6 +315,7 @@ local game_setup = {
                  caption='Next >',
                  action=function(g)
                      gamedata = { data = { scored = {}, score=0, inventory={ Zamzi=true }, map='CITY', layer='outcropping', mapcall='GameStart'},config=start_config}
+                     UIscore.caption=subs.score.str()
                      print ()
                      chain.go("LOGIN")
                  end     
