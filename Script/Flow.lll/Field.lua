@@ -1,6 +1,6 @@
 --[[
   Field.lua
-  Version: 17.08.26
+  Version: 17.09.09
   Copyright (C) 2017 Jeroen Petrus Broks
   
   ===========================
@@ -66,6 +66,17 @@ function f.autoscroll()
    if tm.CAM_BOTTOM and gd.camy+500>tm.CAM_TOP.COORD.y  then gd.camy=tm.CAM_TOP.COORD.y end
 end
 
+local function dprint(t,x,y,ac)
+   local c = ac or {255,255,255}
+   black()
+   for ix=x-1,x+1 do for iy=y-1,y+1 do       
+       love.graphics.print(t,ix,iy)
+   end end
+   Color(c[1],c[2],c[3])
+   love.graphics.print(t,x,y)
+end   
+       
+
 function f.draw()
    local gd = gamedata.data
    gd.camx = gd.camx or 0
@@ -75,6 +86,12 @@ function f.draw()
    UI.kids.Regular.visible = not a1
    --QText(sval(a1).."/"..sval(a2),5,5) -- debug info   
    if not a1 then f.autoscroll() end
+   if f.show then
+      white()
+      local y = (f.my or 25)-20
+      if y>UI.y-30 then y=UI.y-30 end
+      dprint(f.show,(f.mx or 10)+10,y,{255,255,255})
+   end
 end
 
 function f.LoadMap(mapfile)    
@@ -167,6 +184,56 @@ function f.ScrollTo(p1,p2,pwait)
    until ok  
    -- The 'wait' is only a safety precaution, since it's a pretty useless thing in a callback situation.
    return ok -- Does this help?
+end
+
+function f.grabobj(arx,ary) 
+   local rtag,rshow,robj
+   local x=arx+gamedata.data.camx
+   local y=ary+gamedata.data.camy   
+   --print("Scanning for clickable objects ("..arx..","..ary..") >> ("..x..","..y..")")
+   if UI:hover(arx,ary) then
+      if UIKthura:hover(arx,ary) then
+         rtag = "SYS:KTHURA"
+         rshow = "Kthura"
+      else
+        if gamedata.data.inventorysorted then f.UpdateInventory() end
+        for g in each(UISockets) do
+            --print("Scanning: "..sval(g.socket).." "..sval(gamedata.data.inventorysorted[g.socket]).." hovering: "..sval(g:hover(arx,ary)))
+            if g:hover(arx,ary) then
+               local i = gamedata.data.inventorysorted[g.socket]
+               if i then
+                 rtag="INV:"..g.socket
+                 rshow=i
+               end -- if i
+            end    -- if g:hover
+        end -- for g      
+      end -- if UI:hover
+   else
+     for o in each(glob.map.MapObjects[gamedata.data.layer]) do
+       local gotit = false
+       if o.KIND=='Obstacle' then
+          local w = o.LoadedTexture.images[1]:getWidth()
+          local h = o.LoadedTexture.images[1]:getHeight()
+          gotit = x>o.COORD.x-(w/2) and x<o.COORD.x+(w/2) and y<o.COORD.y and y>o.COORD.y-h
+          --print("Obstacle scan ("..o.COORD.x..","..o.COORD.y..") "..w.."x"..h.. " >> "..o.TAG)
+       end
+       if gotit then
+          rtag  = o.TAG
+          rshow = o.DATA.NPC
+          robj  = o
+       end
+     end      
+   end
+   --print("= Returning tag: "..sval(rtag)) 
+   --print("= Returning shw: "..sval(rshow))
+   return rtag,rshow,robj
+end
+
+function f.mousemoved(x,y,dx,dy)
+  local tag,obj
+  tag,f.show,obj=f.grabobj(x,y)
+  f.mx=x
+  f.my=y
 end
    
 lunar.FIELD=f

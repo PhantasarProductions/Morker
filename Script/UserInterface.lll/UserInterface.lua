@@ -1,6 +1,6 @@
 --[[
   UserInterface.lua
-  Version: 17.08.31
+  Version: 17.09.09
   Copyright (C) 2017 Jeroen Petrus Broks
   
   ===========================
@@ -54,7 +54,8 @@ luna.addgadget('socket',{
            pic_items[i] = pic_items[i] or love.graphics.newImage("GFX/INVENTORY/"..i:upper()..".PNG") or love.graphics.newText("? "..i.." ?")
            love.graphics.draw(pic_items[i],g.ax,g.ay)
          end
-      end
+      end,
+
 })
 
 luna.patchgadget('checkbox','eye',{
@@ -64,12 +65,13 @@ luna.patchgadget('checkbox','eye',{
            local b = b2n[g.checked]
            g.eye = g.eye or {}
            g.eye[b] = g.eye[b] or love.graphics.newImage("GFX/USERINTERFACE/EYE/"..b..".PNG")
+           Color(255,180,0)
            love.graphics.draw(g.eye[b],g.ax,g.ay)   
        end
 })
 
 local Regular = { kind='pivot',x=0,y=0,visible=true,kids={
-        {        
+        Kthura = {        
           kind='picture',
           image='GFX/UserInterface/Kthura.png',
           y=50,
@@ -80,6 +82,9 @@ local Regular = { kind='pivot',x=0,y=0,visible=true,kids={
           y=15,
           w=100,
           h=100,
+          FR=255,
+          FG=180,
+          FB=0
         },
         score={
           kind='label',          
@@ -91,12 +96,16 @@ local Regular = { kind='pivot',x=0,y=0,visible=true,kids={
         }
 }}
 
+UIKthura = Regular.kids.Kthura
 UIscore = Regular.kids.score
+UISockets = {}
+
 local socket=0
 for x=200,600,30 do for y=10,120,30 do
     socket = socket + 1
-    local newsocket = { kind="$socket", x=x, y=y, w=25, h=25, socket=socket }
+    local newsocket = { kind="$socket", x=x, y=y, ax=x, ay=y, w=25, h=25, socket=socket }
     Regular.kids[#Regular.kids+1] = newsocket
+    UISockets[#UISockets+1] = newsocket
 end end    
 
 local Talk = { kind='pivot',x=0,y=0,visible=false,kids={ }}
