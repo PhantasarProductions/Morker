@@ -32,7 +32,7 @@
   
  **********************************************
  
-version: 17.08.26
+version: 17.09.11
 ]]
 
 print("Morker - By Jeroen Broks")
@@ -57,7 +57,7 @@ UI=UserInterface  assert(UI,"General User Interface not loaded")
 lunar.FIELD = UI
 
 
-mkl.version("Morker - ILoveYou.lua","17.08.26")
+mkl.version("Morker - ILoveYou.lua","17.09.11")
 mkl.lic    ("Morker - ILoveYou.lua","Phantasar Closed License")
 
 
@@ -77,6 +77,6 @@ function love.load()
    for k,f in spairs(chain.x) do print("X-EVENT font for: "..k.." > "..type(f)) end -- Debug line
 end
 
-function love.quit()
-   saveconfig()
-end   
+--function love.quit()
+--   saveconfig()
+--end   

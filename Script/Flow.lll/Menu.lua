@@ -47,7 +47,7 @@ local l = {
               savegame=function() end,
               deletegame=function() end,
               newgame=function() end,
-              quit=function() end
+              quit=function() love.event.quit() end
           } 
 
 local always = {kind='pivot',x=0,y=0}
