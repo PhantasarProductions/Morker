@@ -36,13 +36,28 @@
 ]]
 
 
+mkl.version("Morker - Menu.lua","17.09.11")
+mkl.lic    ("Morker - Menu.lua","Phantasar zLib License")
+
+
 local m = {}
+local l = {
+              newgame=function() end,
+              loadgame=function() end,
+              savegame=function() end,
+              deletegame=function() end,
+              newgame=function() end,
+              quit=function() end
+          } 
 
 local always = {kind='pivot',x=0,y=0}
 local gameonly = {kind='pivot',x=0,y=0}
 local mui = {kind='pivot',x=0,y=0,kids={always,gameonly}}
 local energy = {kind='label',x=0,y=20,caption='',FR=40,FG=40,FB=40}
+local gameversion = {kind='label',x=0,y=570,caption='',FR=40,FG=40,FB=40}
 local chainback
+
+local major, minor, revision, codename = love.getVersion( )
 
 local batstates ={
    unknown='Cannot determine power status.',
@@ -65,11 +80,20 @@ always.kids = {
    },
    {   kind='label', x=0,y=0, caption='OS: '..love.system.getOS(), FR=40,FG=40,FB=40},
    energy,
+   {   kind='label',x=0,y=550,caption="LOVE2D version: "..major.."."..minor.."."..revision.."  ("..codename..")",FR=40,FG=40,FB=40},
+   gameversion,
+   { kind='button',x=200,w=400,y=150,caption='Restore Game', FR=0,FB=255,FG=180,BR=127,BG=0,BB=127, action=l.loadgame},
+   { kind='button',x=200,w=400,y=200,caption='Delete Game', FR=0,FB=255,FG=180,BR=127,BG=0,BB=127, action=l.deletegame},
+   { kind='button',x=200,w=400,y=250,caption='New Game', FR=0,FB=255,FG=180,BR=127,BG=0,BB=127, action=l.newgame},
+   { kind='button',x=200,w=400,y=350,caption='Quit', FR=0,FB=255,FG=180,BR=127,BG=0,BB=127, action=l.quit}
 }   
 
 local score =  {  kind='label', x=0,y=40, caption="", FR=50,FG=0,FB=50 }
 gameonly.kids = {
-  score
+  score,
+  { kind='button',x=200,w=400,y=100,caption='Save Game', FR=0,FB=255,FG=180,BR=127,BG=0,BB=127, action=l.savegame},
+  { kind='button',x=200,w=400,y=300,caption='Resume Game', FR=0,FB=255,FG=180,BR=127,BG=0,BB=127, action=function() chain.go(chainback) end}
+  
 }
 
 lunamorica.update(mui)
@@ -94,6 +118,7 @@ function m.gomenu(ingame,back)
    gameonly.visible=ingame
    always.visible=true
    chainback = back or 'FIELD'
+   gameversion.caption = "Version - "..mkl.newestversion().." (c) 2017-20"..left(mkl.newestversion(),2).." Jeroen Petrus Broks"
    if ingame then
       score.caption = subs.SCORE.str()
    end   
