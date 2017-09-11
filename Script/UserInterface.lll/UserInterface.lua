@@ -1,6 +1,6 @@
 --[[
   UserInterface.lua
-  Version: 17.09.09
+  Version: 17.09.11
   Copyright (C) 2017 Jeroen Petrus Broks
   
   ===========================
@@ -76,7 +76,7 @@ local Regular = { kind='pivot',x=0,y=0,visible=true,kids={
           image='GFX/UserInterface/Kthura.png',
           y=50,
           x=10
-        },{
+        },eye={
           kind='$eye',
           x=650,
           y=15,
@@ -99,6 +99,7 @@ local Regular = { kind='pivot',x=0,y=0,visible=true,kids={
 UIKthura = Regular.kids.Kthura
 UIscore = Regular.kids.score
 UISockets = {}
+UIEye = Regular.kids.eye
 
 local socket=0
 for x=200,600,30 do for y=10,120,30 do

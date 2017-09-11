@@ -1,6 +1,6 @@
 --[[
   Menu.lua
-  Version: 17.08.31
+  Version: 17.09.11
   Copyright (C) 2017 Jeroen Petrus Broks
   
   ===========================
@@ -38,5 +38,69 @@
 
 local m = {}
 
+local always = {kind='pivot',x=0,y=0}
+local gameonly = {kind='pivot',x=0,y=0}
+local mui = {kind='pivot',x=0,y=0,kids={always,gameonly}}
+local energy = {kind='label',x=0,y=20,caption='',FR=40,FG=40,FB=40}
+local chainback
 
+local batstates ={
+   unknown='Cannot determine power status.',
+   battery='Not plugged in, running on a battery.',
+   nobattery='Plugged in, no battery available.',
+   charging='Plugged in, charging battery.',
+   charged='Plugged in, battery is fully charged.'
+}
+
+
+always.kids = {
+   {
+       kind='picture',
+       image='GFX/LOGOS/MORKER.PNG',
+       hot='c',
+       x=400,
+       y=50,
+       FR=255,FG=255,FB=255,
+       IR=255,IG=255,IB=255
+   },
+   {   kind='label', x=0,y=0, caption='OS: '..love.system.getOS(), FR=40,FG=40,FB=40},
+   energy,
+}   
+
+local score =  {  kind='label', x=0,y=40, caption="", FR=50,FG=0,FB=50 }
+gameonly.kids = {
+  score
+}
+
+lunamorica.update(mui)
+
+function m.draw()
+end
+
+function m.update()
+    local state, percent, seconds = love.system.getPowerInfo( )
+    local e = ""
+    --print(state, percent, seconds) -- debug
+    if percent then 
+       e = percent.."%"
+    else
+       e = "N/A"   
+    end   
+    e = e .. "   ".. (batstates[state] or "?")
+    energy.caption='Energy: '..e
+end
+
+function m.gomenu(ingame,back)
+   gameonly.visible=ingame
+   always.visible=true
+   chainback = back or 'FIELD'
+   if ingame then
+      score.caption = subs.SCORE.str()
+   end   
+   chain.go("MENU")
+end
+
+gomenu=m.gomenu
+
+lunar.MENU = mui
 return m

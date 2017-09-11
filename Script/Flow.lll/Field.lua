@@ -1,6 +1,6 @@
 --[[
   Field.lua
-  Version: 17.09.09
+  Version: 17.09.11
   Copyright (C) 2017 Jeroen Petrus Broks
   
   ===========================
@@ -234,6 +234,19 @@ function f.mousemoved(x,y,dx,dy)
   tag,f.show,obj=f.grabobj(x,y)
   f.mx=x
   f.my=y
+end
+
+function f.mousepressed(x,y,b,t)
+  local tag,show,obj=f.grabobj(x,y) if not tag then return end
+  local looking=b==2 or UIEye.Checked
+  UIEye.Checked=false    
+  if tag=="SYS:KTHURA" then
+     if looking then
+       -- looking myself event
+     else
+       gomenu(true)
+     end  
+  end   
 end
    
 lunar.FIELD=f
