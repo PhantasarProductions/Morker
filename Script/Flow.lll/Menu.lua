@@ -118,7 +118,7 @@ function m.gomenu(ingame,back)
    gameonly.visible=ingame
    always.visible=true
    chainback = back or 'FIELD'
-   gameversion.caption = "Version - "..mkl.newestversion().." (c) 2017-20"..left(mkl.newestversion(),2).." Jeroen Petrus Broks"
+   gameversion.caption = "Version: "..mkl.newestversion().." - (c) 2017-20"..left(mkl.newestversion(),2).." Jeroen Petrus Broks"
    if ingame then
       score.caption = subs.SCORE.str()
    end   
