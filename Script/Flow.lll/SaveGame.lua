@@ -36,14 +36,58 @@
 ]]
 local s = {}
 
+luna.addgadget('sgheader',{
+
+      init = function(g,c)
+          g.heads={}
+          g.myfont=love.graphics.newFont('FONTS/GERMANIA.OTF',30)
+          if not g.myfont then print("WARNING! Font not properly loaded for header!") end
+          --love.graphics.setFont(g.myfont)
+          for k in each({'Save','Restore','Delete'}) do 
+              g.heads[k] = love.graphics.newText(g.myfont,k.." game")
+               
+          end
+          g.heads.Load=g.heads.Restore    
+          g.visible=true      
+      end,
+      draw = function(g)
+         local img = g.heads[s.doing or 'Save'] 
+         if not img then print("NO HEADER!") end
+         --print(s.doing or 'Save') -- debug
+         --print(g.x,g.y) -- debug
+         color(25,18,0,255)
+         love.graphics.draw(img,g.x+5,g.y+5,0,1,1,img:getWidth()/2,0)
+         color(255,180,0,255)
+         love.graphics.draw(img,g.x,g.y,0,1,1,img:getWidth()/2,0)
+      end
+})
+
 local sgui = {
      kind='pivot',x=0,y=0,kids={
-     
+               header = {x=400,y=30,kind='$sgheader'},
+               cancel = {x=100,y=550,w=600,kind='button',FR=0,FG=255,FB=255,BG=255,BG=0,BB=0,caption='Cancel',action=function(g) gomenu(menuingame) end}
      }
 
 }
 
 s.gui = sgui.kids
+
+local function entrybutton(g) end
+
+local id
+for i=100,500,50 do
+   id = (id or 0) + 1
+   s.gui['but'..id] = {x=100,y=i,w=600,kind='button',caption=" Not Yet Defined ",FR=0,FG=255,FB=255,BR=255,BG=0,BB=255,id=id,action=entrybutton}
+   print('Button #'..id.." created")
+end
+luna.update(sgui)
+
+function gosave(d)
+    s.doing = d
+    chain.go('SAVEGAME')
+end
+
+s.gosave = gosave
 
 
 lunar.SAVEGAME = sgui

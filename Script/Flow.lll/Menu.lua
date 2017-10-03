@@ -1,6 +1,6 @@
 --[[
   Menu.lua
-  Version: 17.09.11
+  Version: 17.10.03
   Copyright (C) 2017 Jeroen Petrus Broks
   
   ===========================
@@ -36,16 +36,15 @@
 ]]
 
 
-mkl.version("Morker - Menu.lua","17.09.11")
+mkl.version("Morker - Menu.lua","17.10.03")
 mkl.lic    ("Morker - Menu.lua","Phantasar zLib License")
 
 
 local m = {}
 local l = {
-              newgame=function() end,
-              loadgame=function() end,
-              savegame=function() end,
-              deletegame=function() end,
+              loadgame=function() gosave('Restore') end,
+              savegame=function() gosave('Save') end,
+              deletegame=function() gosave('Delete') end,
               newgame=function() end,
               quit=function() love.event.quit() end
           } 
@@ -115,6 +114,7 @@ function m.update()
 end
 
 function m.gomenu(ingame,back)
+   menuingame=ingame
    gameonly.visible=ingame
    always.visible=true
    chainback = back or 'FIELD'
