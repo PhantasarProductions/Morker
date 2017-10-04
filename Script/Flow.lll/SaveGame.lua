@@ -1,6 +1,6 @@
 --[[
   SaveGame.lua
-  Version: 17.10.03
+  Version: 17.10.04
   Copyright (C) 2017 Jeroen Petrus Broks
   
   ===========================
@@ -34,7 +34,7 @@
      misrepresented as being the original software.
   3. This notice may not be removed or altered from any source distribution.
 ]]
-local s = {}
+local s = { dir = {} }
 
 luna.addgadget('sgheader',{
 
@@ -71,13 +71,16 @@ local sgui = {
 }
 
 s.gui = sgui.kids
+s.sgg = {}
 
 local function entrybutton(g) end
 
 local id
 for i=100,500,50 do
    id = (id or 0) + 1
-   s.gui['but'..id] = {x=100,y=i,w=600,kind='button',caption=" Not Yet Defined ",FR=0,FG=255,FB=255,BR=255,BG=0,BB=255,id=id,action=entrybutton}
+   local newgadget = {x=100,y=i,w=600,kind='button',caption=" Not Yet Defined ",FR=0,FG=255,FB=255,BR=127,BG=0,BB=127,id=id,action=entrybutton}
+   s.gui['but'..id] = newgadget
+   s.sgg[id] = newgadget
    print('Button #'..id.." created")
 end
 luna.update(sgui)
@@ -85,6 +88,18 @@ luna.update(sgui)
 function gosave(d)
     s.doing = d
     chain.go('SAVEGAME')
+    if not love.filesystem.isDirectory("SaveGame") then love.filesystem.createDirectory("SaveGame") end
+    if not love.filesystem.isFile("SaveGame/Dir.lua") then s.dir={} else s.dir= j_love_import("SaveGame/Dir.lua",true) end
+    for i,g in ipairs(s.sgg) do
+        --local i=g.id
+        local n=s.dir[i]
+        g.caption=n or "< EMPTY SLOT >"
+        g.acaption=nil
+        g.visible= (d=='Save') or n~=nil
+        g:lf_init()
+        print(i.."> "..g.acaption)
+    end    
+    luna.update(sgui)
 end
 
 s.gosave = gosave
