@@ -34,6 +34,9 @@
      misrepresented as being the original software.
   3. This notice may not be removed or altered from any source distribution.
 ]]
+
+-- *import time
+
 local s = { dir = {} }
 
 luna.addgadget('sgheader',{
@@ -73,7 +76,33 @@ local sgui = {
 s.gui = sgui.kids
 s.sgg = {}
 
-local function entrybutton(g) end
+
+DirSave = function()
+          local output = serialize("local ret",s.dir) .."\n\nreturn ret"
+          love.filesystem.write("SaveGame/Dir.lua",output)
+end
+
+local whattodo = {
+
+
+       Save = function(i)
+          --local t = os.date('*t')
+          local name = time.now()
+          s.dir[i]=name
+          DirSave()
+          local output = "-- Generated: "..time.now().." --\nlocal whatever\n"
+          output = output .. serialize('gamedata',gamedata).."\n"
+          local tPLAYER = serialize('local tPLAYER',PLAYER)..'\n'
+          tPLAYER = replace(tPLAYER,"'!ERROR! --","nil, -- '")
+          output = output .. tPLAYER..'\n\nreturn true\n\n'
+          love.filesystem.write('SaveGame/SG_'..i..'.lua',output)
+          gosave(s.doing)
+       end
+}
+
+local function entrybutton(g) 
+    whattodo[s.doing](g.id)
+end
 
 local id
 for i=100,500,50 do
